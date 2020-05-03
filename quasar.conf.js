@@ -7,6 +7,7 @@ module.exports = function (ctx) {
     // --> boot files are part of "main.js"
     // https://quasar.dev/quasar-cli/cli-documentation/boot-files
     boot: [
+      'amplify'
     ],
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
@@ -67,9 +68,10 @@ module.exports = function (ctx) {
       extendWebpack (cfg) {
         cfg.module.rules.push({
           enforce: 'pre',
-          test: /\.(js|vue)$/,
+          test: /\.(mjs|js|vue)$/,
           loader: 'eslint-loader',
-          exclude: /node_modules/,
+          include: /node_modules/,
+          type: 'javascript/auto',
           options: {
             formatter: require('eslint').CLIEngine.getFormatter('stylish')
           }
@@ -140,7 +142,6 @@ module.exports = function (ctx) {
       // noIosLegacyBuildFlag: true, // uncomment only if you know what you are doing
       id: 'org.cordova.quasar.app'
     },
-
 
     // Full list of options: https://quasar.dev/quasar-cli/developing-capacitor-apps/configuring-capacitor
     capacitor: {
